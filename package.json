@@ -8,12 +8,11 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start:heroku": "node dist/spacex/server/main.js",
     "dev:ssr": "ng run spacex:serve-ssr",
     "serve:ssr": "node dist/spacex/server/main.js",
     "build:ssr": "ng build --prod && ng run spacex:server:production",
     "prerender": "ng run spacex:prerender",
-    "postinstall": "npm run build:ssr && npm run serve:ssr"
+    "heroku-postbuild": "ng lint && npm run build:ssr"
   },
   "private": true,
   "dependencies": {
