@@ -1,0 +1,58 @@
+<div class="main-container">
+  <h1 class="main-heading">SpaceX Launch Programs</h1>
+  <div class="container">
+    <aside class="left">
+      <h2>Filters</h2>
+      <h3 class="align-center">Launch Year<hr class="bottom-line" /></h3>
+      <div class="filters">
+        <div class="filter-container">
+          <div *ngFor="let year of yearFilters" class="button-container">
+            <button  (click)="getFilteredData('launch_year', year.year)"
+            [ngClass]="{'active': defaultOptions.launch_year === year.year}">{{year.year}}</button>
+          </div>
+        </div>
+      </div>
+      <h3 class="align-center">Successful Launch<hr class="bottom-line" /></h3>
+      <div class="filters">
+        <div class="filter-container">
+          <button [ngClass]="{'active': defaultOptions?.launch_success === 'true'}"
+            (click)="getFilteredData('launch_success', true)">True</button>
+          <button [ngClass]="{'active': defaultOptions?.launch_success === 'false'}"
+            (click)="getFilteredData('launch_success', false)">False</button>
+        </div>
+      </div>
+      <h3 class="align-center">Successful Landing<hr class="bottom-line" /></h3>
+      <div class="filters">
+        <div class="filter-container">
+          <button [ngClass]="{'active': defaultOptions?.land_success === 'true'}"
+            (click)="getFilteredData('land_success', true)">True</button>
+          <button [ngClass]="{'active': defaultOptions?.land_success === 'false'}"
+            (click)="getFilteredData('land_success', false)">False</button>
+        </div>
+      </div>
+    </aside>
+    <div class="card-container right" *ngIf="programsListing?.length">
+      <div class="set" *ngFor="let space of programsListing" (scroll)="onScrolling($event)">
+        <div class="card">
+          <figure class="image-container">
+            <img onError="this.src='../../../assets/images/default.png'" src="{{space?.links?.mission_patch_small}}"
+              alt="" />
+          </figure>
+          <div class="card-content">
+            <h3>{{space?.mission_name.slice(0, 10)}}<span *ngIf="space?.mission_name.length > 10">...</span>&nbsp;#{{space?.flight_number}}</h3>
+            <p><strong>Mission Ids:</strong> <span>{{space?.mission_id?.length ? space?.mission_id?.join() : '-'}}</span></p>
+            <p><strong>Launch year:</strong> <span>{{space?.launch_year}}</span></p>
+            <p><strong>Successful launch:</strong> <span>{{space?.launch_success}}</span></p>
+            <p><strong>Successful landing:</strong> <span>{{space.rocket.first_stage.cores[0].land_success ? true : false}}</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="launch-program-page right" *ngIf="!programsListing?.length">
+      <h1>No SpaceX Program Found</h1>
+    </div>
+  </div>
+  <footer>
+    <p class="align-center"><strong>Developed by: Chandresh Baboo</strong>&nbsp;</p>
+  </footer>
+</div>
