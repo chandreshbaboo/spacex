@@ -12,7 +12,7 @@ export class ListingComponent implements OnInit {
   public programsListing;
   public defaultOptions = {
     limit: CommonConstants.MAGIC_NUMBERS.TWENTY,
-    launch_success: true,
+    launch_success: '',
     land_success: '',
     launch_year: ''
   };
